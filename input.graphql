@@ -1,0 +1,74 @@
+query Input {
+  cart {
+    lines {
+      id
+      quantity
+	attribute(key: "location") {
+		key
+		value
+	}
+	  cost {
+		amountPerQuantity {
+			amount
+		}
+	  }
+      merchandise {
+        ... on ProductVariant {
+          id
+          brisbanePricing: metafield(
+            namespace: "custom"
+            key: "brisbane_location_pricing"
+          ) {
+            value
+          }
+          sydneyPricing: metafield(
+            namespace: "custom"
+            key: "sydney_location_pricing"
+          ) {
+            value
+          }
+          melbournePricing: metafield(
+            namespace: "custom"
+            key: "melbourne_location_pricing"
+          ) {
+            value
+          }
+        }
+      }
+    }
+    cost {
+      totalAmount {
+        amount
+        currencyCode
+      }
+      subtotalAmount {
+        amount
+        currencyCode
+      }
+      totalTaxAmount {
+        amount
+        currencyCode
+      }
+      totalDutyAmount {
+        amount
+        currencyCode
+      }
+    }
+    buyerIdentity {
+      email
+      phone
+      customer {
+        id
+      }
+    }
+	attribute(key: "location") {
+		key
+		value
+	}
+  }
+  discountNode {
+    metafield(namespace: "location-pricing", key: "pricing-config") {
+      value
+    }
+  }
+}
